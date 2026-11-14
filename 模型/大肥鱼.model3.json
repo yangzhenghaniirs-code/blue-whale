@@ -1,0 +1,230 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "大肥鱼.moc3",
+		"Textures": [
+			"大肥鱼.4096/texture_00.png",
+			"大肥鱼.4096/texture_01.png",
+			"大肥鱼.4096/texture_02.png",
+			"大肥鱼.4096/texture_03.png",
+			"大肥鱼.4096/texture_04.png"
+		],
+		"Physics": "大肥鱼.physics3.json",
+		"DisplayInfo": "大肥鱼.cdi3.json",
+		"Expressions": [
+			{
+				"Name": "脸红",
+				"File": "Exp3/脸红.exp3.json"
+			},
+			{
+				"Name": "爱心眼",
+				"File": "Exp3/爱心眼.exp3.json"
+			},
+			{
+				"Name": "圈圈眼",
+				"File": "Exp3/圈圈眼.exp3.json"
+			},
+			{
+				"Name": "屑屑眼",
+				"File": "Exp3/屑屑眼.exp3.json"
+			},
+			{
+				"Name": "＞＜",
+				"File": "Exp3/＞＜.exp3.json"
+			},
+			{
+				"Name": "流泪",
+				"File": "Exp3/流泪.exp3.json"
+			},
+			{
+				"Name": "流冷汗",
+				"File": "Exp3/流冷汗.exp3.json"
+			},
+			{
+				"Name": "黑脸",
+				"File": "Exp3/黑脸.exp3.json"
+			},
+			{
+				"Name": "兔牙",
+				"File": "Exp3/兔牙.exp3.json"
+			},
+			{
+				"Name": "加载",
+				"File": "Exp3/加载.exp3.json"
+			},
+			{
+				"Name": "钢盆",
+				"File": "Exp3/钢盆.exp3.json"
+			},
+			{
+				"Name": "黑框眼镜",
+				"File": "Exp3/黑框眼镜.exp3.json"
+			},
+			{
+				"Name": "单片眼镜",
+				"File": "Exp3/单片眼镜.exp3.json"
+			},
+			{
+				"Name": "竖食指开",
+				"File": "Exp3/竖食指开.exp3.json"
+			},
+			{
+				"Name": "竖食指关",
+				"File": "Exp3/竖食指关.exp3.json"
+			},
+			{
+				"Name": "前倾",
+				"File": "Exp3/前倾.exp3.json"
+			},
+			{
+				"Name": "中号",
+				"File": "Exp3/中号.exp3.json"
+			},
+			{
+				"Name": "小号",
+				"File": "Exp3/小号.exp3.json"
+			},
+			{
+				"Name": "大号",
+				"File": "Exp3/大号.exp3.json"
+			},
+			{
+				"Name": "尾巴开关",
+				"File": "Exp3/尾巴开关.exp3.json"
+			},
+			{
+				"Name": "胸口衣服",
+				"File": "Exp3/胸口衣服.exp3.json"
+			},
+			{
+				"Name": "脱鞋",
+				"File": "Exp3/脱鞋.exp3.json"
+			},
+			{
+				"Name": "裙子切换",
+				"File": "Exp3/裙子切换.exp3.json"
+			}
+		],
+		"Motions": {
+			"Main": [
+				{
+					"File": "Animation/待机.motion3.json"
+				}
+			],
+			"TrackingLost": [
+				{
+					"File": "Animation/脱捕.motion3.json"
+				}
+			],
+			"Talk": [
+				{
+					"File": "Animation/正常说话-狗尾草.motion3.json"
+				},
+				{
+					"File": "Animation/正常说话-抚胸.motion3.json"
+				},
+				{
+					"File": "Animation/正常说话-食指.motion3.json"
+				}
+			],
+			"Outfit": [
+				{
+					"File": "Animation/换装-长裙.motion3.json"
+				},
+				{
+					"File": "Animation/换装-中号.motion3.json"
+				},
+				{
+					"File": "Animation/换装-小号.motion3.json"
+				},
+				{
+					"File": "Animation/换装-大号.motion3.json"
+				},
+				{
+					"File": "Animation/换装-脱鞋.motion3.json"
+				},
+				{
+					"File": "Animation/换装-尾巴开关.motion3.json"
+				},
+				{
+					"File": "Animation/换装-胸口衣服.motion3.json"
+				},
+				{
+					"File": "Animation/换装-全部还原.motion3.json"
+				},
+				{
+					"File": "Animation/换装-穿鞋.motion3.json"
+				},
+				{
+					"File": "Animation/换装-短裙.motion3.json"
+				},
+				{
+					"File": "Animation/换装-放出尾巴.motion3.json"
+				},
+				{
+					"File": "Animation/换装-换回胸口衣服.motion3.json"
+				}
+			],
+			"Emotion": [
+				{
+					"File": "Animation/情绪-开心-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-害羞-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-生气-2.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-生气-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-惊讶-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-尴尬-2.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-心动-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-调皮-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-生气-3.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-温柔-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-难过-1.motion3.json"
+				},
+				{
+					"File": "Animation/情绪-尴尬-1.motion3.json"
+				}
+			],
+			"Custom": [
+				{
+					"File": "Animation/摸头.motion3.json"
+				}
+			]
+		}
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeROpen",
+				"ParamEyeLOpen"
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": [
+				"ParamMouthOpenY"
+			]
+		}
+	]
+}

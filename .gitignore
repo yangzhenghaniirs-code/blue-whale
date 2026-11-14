@@ -1,0 +1,5 @@
+data/
+node_modules/
+# 桌宠程序太大（app.asar 457MB），放在 Releases 的安装包里
+桌宠/
+*.zip

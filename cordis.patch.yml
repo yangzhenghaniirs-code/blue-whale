@@ -1,0 +1,8 @@
+# blue whale：桌宠连 18100 端口；DSH 打开时自动叫出桌宠（插件文件夹里自带的 桌宠\airi.exe）
+- insert:
+    - id: bluewhale
+      name: 'dsh-bluewhale-prompt'
+      config:
+        port: 18100
+        autoLaunchPet: true
+        ruleMode: prompt
