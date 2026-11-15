@@ -4,6 +4,15 @@ DeepSeek Harness（DSH）插件，**桌宠程序在里面**，下载这一个文
 
 桌宠说的每句话，开头都带标签 `[from the blue whale]`，后面还附上一段表情动作规则（`桌宠规则.md`，大约三百字）。你的人设和记忆**一个字都不用改**，装上就能用。代价是每句话多三百字左右，聊得越多，会话越长。
 
+## 下载
+安装包 `blue-whale-v0.2.0.zip`（约 470MB，桌宠程序在里面），两个地方内容一样，选一个：
+- **国内（不用梯子）**：百度网盘 https://pan.baidu.com/s/14fqkbOPyu4pSlkgC3K6fYQ?pwd=1234 ，提取码 `1234`
+- **GitHub**：https://github.com/yangzhenghaniirs-code/blue-whale/releases/tag/v0.2.0
+
+下载后解压，得到 `blue-whale` 文件夹，再按下面的步骤准备模型、安装。
+
+> 杀毒软件（360 等）可能误删桌宠里的文件，导致桌宠没有托盘图标、角色被关在小框里。解压前先把要放的文件夹加入信任。
+
 ## 里面有什么
 ```
 blue-whale\
