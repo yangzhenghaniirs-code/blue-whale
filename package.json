@@ -1,6 +1,6 @@
 {
   "name": "dsh-bluewhale-prompt",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "blue whale：让 Live2D 桌宠和 DeepSeek Harness 里的角色对话，每句话附上表情动作规则，并随 DSH 一起启动桌宠",
   "license": "MIT",
   "type": "module",
