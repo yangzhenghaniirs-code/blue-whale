@@ -1,6 +1,6 @@
 {
   "name": "@yangzhenghan/dsh-bluewhale",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "blue whale：DeepSeek Harness 的 Live2D 桌宠插件（大肥鱼），桌宠和 DSH 里的角色对话、带表情动作；第一次使用自动下载桌宠程序",
   "keywords": [
     "dsh-plugin",

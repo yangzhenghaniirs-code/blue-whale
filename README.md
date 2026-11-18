@@ -20,7 +20,7 @@ DeepSeek Harness（DSH）插件：桌面上的 Live2D 桌宠「大肥鱼」，�
 > 杀毒软件（360 等）可能误删桌宠里的文件，导致桌宠没有托盘图标、角色被关在小框里。可以把 `C:\Users\你的用户名\.dsh\blue-whale` 加入信任。
 
 ## 手动安装（不想在线下载时）
-到 [GitHub](https://github.com/yangzhenghaniirs-code/blue-whale/releases/tag/v0.4.0) 或 [Gitee](https://gitee.com/yangzhenghan/blue-whale/releases/tag/v0.4.0) 下载整包，解压后在 DSH 设置 → 插件 → 按本地路径安装。Gitee 的整包拆成了 6 份，合并方法看那边的说明。
+到 [GitHub](https://github.com/yangzhenghaniirs-code/blue-whale/releases/tag/v0.4.1) 或 [Gitee](https://gitee.com/yangzhenghan/blue-whale/releases/tag/v0.4.1) 下载整包，解压后在 DSH 设置 → 插件 → 按本地路径安装。Gitee 的整包拆成了 6 份，合并方法看那边的说明。
 
 ## 模型
 - 内置模型是「大肥鱼」，已经加好表情动作、换装动作、说话口型，是桌宠的初始模型，也是唯一自带的模型（AIRI 官方的示例模型已去掉）。
@@ -49,6 +49,7 @@ DeepSeek Harness（DSH）插件：桌面上的 Live2D 桌宠「大肥鱼」，�
 - **和 aurabot（QQ）一起用**：如果切换到 aurabot 建的 QQ 会话，对桌宠说的话的回复，aurabot 也会发到 QQ 上。
 - **后续消息**：角色说完以后 1 分钟内补的话，比如提醒到点、主动搭话，桌宠也会念出来，一句一句地念。
 - **屏幕边缘（0.3.3 起）**：鼠标在屏幕最边上按住拖，不会再拖到大肥（打开桌宠前插件自动修好）。
+- **回到屏幕中心（0.4.1 起）**：右键托盘小图标点「回到屏幕中心」，大肥滑回所在屏幕正中（拖丢了、拖到边上找不到时用）。
 - **托盘菜单（0.3.5 起）**：右键托盘小图标的「显示/隐藏桌宠」，桌宠开着时点它会隐藏，再点一次显示（左键单击小图标也能显示）。
 - 用的是 18100 端口，别的程序占着这个端口时桌宠连不上。
 - **国内用麦克风（0.3.1 起）**：桌宠判断「有没有人在说话」的语音检测模型原本要从 huggingface.co 下载，国内连不上，听力会卡在 Loading 或报 Failed to fetch。插件现在自带这个模型，在本机 18101 端口提供，并在打开桌宠前自动把桌宠里的下载地址改成本机。所以要从 DSH 里打开桌宠（不要单独打开 airi.exe），听力才能用。

@@ -20,19 +20,19 @@ const rawFs = (() => {
 
 // 要下的桌宠版本。换了桌宠就改这里（大小、指纹、地址都要一起改）
 export const PET = {
-  version: '0.4.0',
-  size: 508033039,
-  sha256: '41e192742faf3448522903773c513b6883b28e14b70a882eec3730450a41cf4f',
+  version: '0.4.1',
+  size: 508034601,
+  sha256: '85310ae4863ab1f4df40e3ddd8d32cbeb25cd49d8055e9ff204ed99915c78d42',
   // 包里桌宠所在的文件夹
   inner: path.join('blue-whale', '桌宠'),
   sources: [
     {
       name: 'Gitee',
-      parts: [1, 2, 3, 4, 5, 6].map((i) => `https://gitee.com/yangzhenghan/blue-whale/releases/download/v0.4.0/blue-whale-v0.4.0.zip.00${i}`),
+      parts: [1, 2, 3, 4, 5, 6].map((i) => `https://gitee.com/yangzhenghan/blue-whale/releases/download/v0.4.1/blue-whale-v0.4.1.zip.00${i}`),
     },
     {
       name: 'GitHub',
-      parts: ['https://github.com/yangzhenghaniirs-code/blue-whale/releases/download/v0.4.0/blue-whale-v0.4.0.zip'],
+      parts: ['https://github.com/yangzhenghaniirs-code/blue-whale/releases/download/v0.4.1/blue-whale-v0.4.1.zip'],
     },
   ],
 }
