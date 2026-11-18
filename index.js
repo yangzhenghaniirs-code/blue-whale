@@ -10,8 +10,13 @@ import { scheduleCookieCleanup } from './src/cookie-cleaner.js'
 import { log } from './src/state.js'
 import { ROOT } from './src/state.js'
 import fs from 'node:fs'
+import { ensurePet, toast, PET_EXE } from './src/pet-download.js'
+import { startModelServer, patchPet } from './src/vad-mirror.js'
+import { tagModeHint } from './src/pet-rules.js'
 
-const BUNDLED_PET = [path.join(ROOT, '桌宠', 'airi.exe'), path.join(process.env.LOCALAPPDATA || '', 'Programs', 'airi', 'airi.exe')].find((p) => fs.existsSync(p)) || path.join(ROOT, '桌宠', 'airi.exe')
+// 桌宠程序在哪：整包里自带的「桌宠\airi.exe」 → 自动下载的 ~/.dsh/blue-whale/pet-版本\桌宠\airi.exe → 装在 Programs\airi 的
+// 都没有时用自动下载的位置（插件启动时会去下载）
+const BUNDLED_PET = [path.join(ROOT, '桌宠', 'airi.exe'), PET_EXE, path.join(process.env.LOCALAPPDATA || '', 'Programs', 'airi', 'airi.exe')].find((p) => fs.existsSync(p)) || PET_EXE
 
 export const inject = ['sessionController']
 
@@ -23,11 +28,14 @@ const DEFAULTS = {
   allWorkspaces: true,
   // 桌宠说的话开头加的标签，角色靠它认出这是桌宠里当面说的
   petTag: '[from the blue whale]',
-  // prompt = 每句话都附上「桌宠规则.md」；tag = 只带标签，规则由用户自己写进角色的人设或记忆
-  ruleMode: 'prompt',
+  // tag（默认）= 只带标签，规则由用户自己写进角色的记忆或人设（启动时会生成一份可直接粘贴的规则）
+  // prompt = 每句话都附上「桌宠规则.md」，不用改记忆，但每句多三百字
+  ruleMode: 'tag',
   // 桌宠程序：优先用插件文件夹里自带的「桌宠\airi.exe」（下载整包就能用），没有就用装在 Programs\airi 的
   airiExe: BUNDLED_PET,
   autoLaunchPet: true,
+  // 没有桌宠程序时自动从 Gitee / GitHub 下载（约 460MB，只下一次）
+  autoDownloadPet: true,
   closePetOnExit: true,
   timeoutSeconds: 180,
   fallbackReply: '我刚刚走神了，你再说一遍？',
@@ -58,9 +66,10 @@ export const Config = z
       workDir: z.string().default(DEFAULTS.workDir).description('新建会话放在哪个文件夹（工作区）'),
       allWorkspaces: z.boolean().default(DEFAULTS.allWorkspaces).description('切换聊天时列出所有工作区的会话'),
       petTag: z.string().default(DEFAULTS.petTag).description('桌宠消息开头的标签'),
-      ruleMode: z.union(['prompt', 'tag']).default(DEFAULTS.ruleMode).description('prompt：每句附上桌宠规则.md；tag：只带标签，规则自己贴进角色记忆'),
+      ruleMode: z.union(['prompt', 'tag']).default(DEFAULTS.ruleMode).description('tag：只带标签，规则要贴进角色记忆（见 .dsh\\blue-whale\\贴进记忆的桌宠规则.txt）；prompt：每句附上桌宠规则.md'),
       airiExe: z.string().default(DEFAULTS.airiExe).description('桌宠程序 airi.exe 的位置'),
       autoLaunchPet: z.boolean().default(DEFAULTS.autoLaunchPet).description('DSH 启动时打开桌宠'),
+      autoDownloadPet: z.boolean().default(DEFAULTS.autoDownloadPet).description('没有桌宠程序时自动下载（约 460MB，只下一次）'),
       closePetOnExit: z.boolean().default(DEFAULTS.closePetOnExit).description('DSH 退出时关掉桌宠'),
       timeoutSeconds: z.natural().default(DEFAULTS.timeoutSeconds).description('等角色回复最多几秒'),
       fallbackReply: z.string().default(DEFAULTS.fallbackReply).description('出错时桌宠说的话'),
@@ -83,8 +92,22 @@ export function apply(ctx, config = {}) {
   const pet = createPetLauncher(cfg)
 
   server.start()
+  // 语音检测模型在本机提供，国内不用连 huggingface.co（src/vad-mirror.js）
+  const modelServer = startModelServer()
   scheduleCookieCleanup(log)
-  if (cfg.autoLaunchPet) pet.start().catch((e) => log('✗ 打开桌宠出错：', e))
+  tagModeHint(cfg, toast)
+  if (cfg.autoLaunchPet) {
+    // 从插件市场装的没有自带桌宠：第一次先下载（下载在后台进行，不耽误 DSH 启动）
+    const ready = fs.existsSync(cfg.airiExe) || !cfg.autoDownloadPet || path.resolve(cfg.airiExe) !== path.resolve(PET_EXE)
+      ? Promise.resolve()
+      : ensurePet(toast)
+    ready
+      .then(() => {
+        if (fs.existsSync(cfg.airiExe)) patchPet(cfg.airiExe)
+        return pet.start()
+      })
+      .catch((e) => log('✗ 打开桌宠出错：', e))
+  }
   log('blue whale插件已启动', { port: cfg.port, autoLaunchPet: cfg.autoLaunchPet })
   try {
     log('DSH 可用的模型路由：', ctx.get('llm')?.listProviders?.() ?? '（没有 llm 服务）')
@@ -95,6 +118,7 @@ export function apply(ctx, config = {}) {
   ctx.effect(() => async () => {
     pet.stop()
     await server.stop()
+    await modelServer.stop()
     log('blue whale插件已停止')
   }, 'dafei: server and pet')
 }

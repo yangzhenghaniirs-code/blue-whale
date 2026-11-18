@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Attach pet rules to every message",
+    "description": "On: every pet message carries the expression rules. Off: only the [from the blue whale] tag; the rules live in the character's memory."
+  }
+}

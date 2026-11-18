@@ -1,12 +1,16 @@
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 // 插件根目录（src 的上一级）
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
+// 状态和日志放哪：从 DSH 插件市场（npm）装的插件住在 node_modules 里，更新时会被整个换掉，所以放到 ~/.dsh/blue-whale/data；手动放的文件夹照旧用插件里的 data\
+export const DATA_DIR = ROOT.split(path.sep).includes('node_modules') ? path.join(os.homedir(), '.dsh', 'blue-whale', 'data') : path.join(ROOT, 'data')
+
 // 运行时状态：{ sessionId }，桌宠说的话发到哪个会话；重启后继续用同一个
-const STATE_PATH = path.join(ROOT, 'data', 'state.json')
+const STATE_PATH = path.join(DATA_DIR, 'state.json')
 
 export function loadState() {
   try {
@@ -27,7 +31,7 @@ export function saveState(patch) {
 }
 
 // 简单日志：写进 data/dafei.log，超过 1MB 就从头写
-const LOG_PATH = path.join(ROOT, 'data', 'dafei.log')
+const LOG_PATH = path.join(DATA_DIR, 'dafei.log')
 
 export function log(...args) {
   const line = `[${new Date().toLocaleString()}] ${args.map((a) => (a instanceof Error ? a.stack || a.message : typeof a === 'string' ? a : JSON.stringify(a))).join(' ')}\n`

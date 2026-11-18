@@ -1,14 +1,49 @@
 {
-  "name": "dsh-bluewhale-prompt",
-  "version": "0.3.0",
-  "description": "blue whale：让 Live2D 桌宠和 DeepSeek Harness 里的角色对话，每句话附上表情动作规则，并随 DSH 一起启动桌宠",
+  "name": "@yangzhenghan/dsh-bluewhale",
+  "version": "0.4.0",
+  "description": "blue whale：DeepSeek Harness 的 Live2D 桌宠插件（大肥鱼），桌宠和 DSH 里的角色对话、带表情动作；第一次使用自动下载桌宠程序",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "dsh",
+    "live2d",
+    "desktop-pet",
+    "桌宠",
+    "airi"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangzhenghaniirs-code/blue-whale.git"
+  },
+  "homepage": "https://gitee.com/yangzhenghan/blue-whale",
+  "os": [
+    "win32"
+  ],
   "type": "module",
   "exports": {
     ".": "./index.js",
     "./locale/*.json": "./locale/*.json",
-    "./icon": "./icon.png"
+    "./icon": "./icon.png",
+    "./prompt-rules": "./src/prompt-rules.js",
+    "./prompt-rules/locale/*.json": "./prompt-rules/locale/*.json",
+    "./prompt-rules/icon": "./icon.png"
   },
-  "files": ["index.js", "src/*.js", "cordis.patch.yml", "locale/*.json", "icon.png", "桌宠规则.md", "README.md"],
-  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+  "files": [
+    "index.js",
+    "src/*.js",
+    "assets/silero-vad.onnx",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.png",
+    "桌宠规则.md",
+    "README.md",
+    "LICENSE",
+    "prompt-rules/locale/*.json"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
 }
