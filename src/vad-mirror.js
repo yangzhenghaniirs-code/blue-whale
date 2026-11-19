@@ -36,11 +36,16 @@ const BORDER_NEW = 'const nearBorder = false;'
 // 新写法要塞进原来的字节数里，所以写得很紧凑、菜单名改成「显示/隐藏桌宠」；w 用默认参数拿到桌宠窗口（Electron 点菜单只传前三个参数）
 const TRAY_OLD = '\t\t\t{\n\t\t\t\tlabel: "显示 / 隐藏桌宠",\n\t\t\t\tclick: () => toggleWindowShow(params.mainWindow)\n\t\t\t}'
 const TRAY_NEW = '{label:"显示/隐藏桌宠",click:(a,b,c,w=params.mainWindow)=>w.isVisible()?w.hide():w.show()}'
+// 屏幕四个角也点得穿（0.4.2）：舞台外框有 16 像素圆角并裁掉溢出，角上测到的是外框不是画布，窗口就接住了鼠标、按住拖到大肥。
+// 改成测到包着画布的外框也算在画布上；新代码比原来长，把前面那段英文注释一起换掉腾出位置
+const CORNER_OLD = '/**\n\t\t* Whether the cursor sits on the stage canvas rather than on interface drawn over it.\n\t\t*\n\t\t* The pixel test can only answer for the canvas, and the canvas draws nothing beneath a\n\t\t* DOM overlay, so a button, a toast or a portaled panel floating over blank canvas\n\t\t* would read as empty space and lose its clicks. Ask the document what is really under\n\t\t* the cursor instead. This is a hit test, not an event, so it still answers while the\n\t\t* window is click-through.\n\t\t*/\n\t\tconst isPointerOverStageCanvas = computed(() => document.elementFromPoint(relativeMouseX.value, relativeMouseY.value) === stageCanvas.value);'
+const CORNER_NEW = 'const isPointerOverStageCanvas = computed(() => { const hit = document.elementFromPoint(relativeMouseX.value, relativeMouseY.value); return hit === stageCanvas.value || !!(hit && stageCanvas.value && hit.contains(stageCanvas.value)); });'
 // 每条：名字、原文、换成什么（按字节算长度必须一样；短了就在最后一个字符前补空格）
 const PET_PATCHES = [
   ['语音检测模型地址换成本机', 'remoteHost: "https://huggingface.co/"', `remoteHost: "http://127.0.0.1:${VAD_PORT}/"`],
   ['屏幕边缘不再抢鼠标', BORDER_OLD, BORDER_NEW],
   ['托盘显示/隐藏能隐藏', TRAY_OLD, TRAY_NEW],
+  ['屏幕四个角也点得穿', CORNER_OLD, CORNER_NEW],
 ].map(([name, from, to]) => {
   const f = Buffer.from(from)
   const short = f.length - Buffer.byteLength(to)
@@ -103,7 +108,7 @@ export function patchPet(airiExe) {
   const asar = path.join(path.dirname(airiExe), 'resources', 'app.asar')
   if (!rawFs.existsSync(asar)) return log('找不到桌宠的 app.asar，跳过修补：', asar)
   // 检查过的 app.asar 记下大小和修改时间，没变就不再扫一遍 500MB；修补项变了就换个记号文件名，重新检查一次
-  const mark = asar + '.patches-v3'
+  const mark = asar + '.patches-v4'
   const stamp = (st) => `${st.size}:${Math.floor(st.mtimeMs)}`
   try {
     if (rawFs.readFileSync(mark, 'utf8') === stamp(rawFs.statSync(asar))) return
